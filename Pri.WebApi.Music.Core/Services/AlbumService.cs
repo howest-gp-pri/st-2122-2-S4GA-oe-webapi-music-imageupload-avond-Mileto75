@@ -14,10 +14,13 @@ namespace Pri.WebApi.Music.Core.Services
     public class AlbumService : IAlbumService
     {
         private readonly IAlbumRepository _albumRepository;
+        private readonly IImageService _imageService;
 
-        public AlbumService(IAlbumRepository albumRepository)
+        public AlbumService(IAlbumRepository albumRepository,
+            IImageService imageService)
         {
             _albumRepository = albumRepository;
+            _imageService = imageService;
         }
         public async Task<bool> AddAsync(string name, DateTime releaseDate, IFormFile image, int artistId)
         {
@@ -25,7 +28,8 @@ namespace Pri.WebApi.Music.Core.Services
             {
                 Name = name,
                 ReleaseDate = releaseDate,
-                Image = image.FileName,
+                //call the imageService addAsync
+                Image = await _imageService.AddImageAsync<Album>(image),
                 ArtistId = artistId
             };
             try 

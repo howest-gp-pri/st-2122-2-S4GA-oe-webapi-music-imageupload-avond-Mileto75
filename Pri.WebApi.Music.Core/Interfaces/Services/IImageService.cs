@@ -9,8 +9,8 @@ namespace Pri.WebApi.Music.Core.Interfaces.Services
 {
     public interface IImageService
     {
-        Task<string> AddImageAsync(IFormFile image);
-        Task<string> UpdateImageAsync(IFormFile image,string filename);
+        Task<string> AddImageAsync<T>(IFormFile image);
+        Task<string> UpdateImageAsync<T>(IFormFile image,string filename);
         string GetUrl(string filename);
 
     }
